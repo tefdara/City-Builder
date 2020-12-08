@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
-
+    private Action<Vector3> OnPointerDownHandler;
     public LayerMask MouseInputMask;
 
 
@@ -25,8 +26,20 @@ public class InputManager : MonoBehaviour
             {
                 Vector3 point = hitInfo.point - transform.position;
                 Debug.Log(point);
+                OnPointerDownHandler?.Invoke(point);
             }
 
         }
     }
+
+    public void AddListenerOnPointerDownEvent(Action<Vector3> listener)
+    {
+        OnPointerDownHandler += listener;
+    }
+    public void RemoveListenerOnPointerDownEvent(Action<Vector3> listener)
+    {
+        OnPointerDownHandler -= listener;
+    }
+
+
 }
