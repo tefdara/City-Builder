@@ -7,18 +7,24 @@ public class GameManager : MonoBehaviour
 {
     public InputManager InputManager;
     public PlacementManager PlacementManager;
-    private GridStructure Grid;
+    
+    private GridStructure GridStructure;
 
     private int _cellSize = 3;
+    public int _width, _height;
+
 
     private void Start()
     {
-        Grid = new GridStructure(3);
+        GridStructure = new GridStructure(_cellSize, _width, _height);
         InputManager.AddListenerOnPointerDownEvent(HandleInput);
     }
 
     private void HandleInput(Vector3 pos)
     {
-        PlacementManager.CreateBuilding(Grid.CalculateGridStructure(pos));
+        Vector3 gridPosition = GridStructure.CalculateGridStructure(pos);
+
+        if(!GridStructure.IsCellTaken(gridPosition))
+        PlacementManager.CreateBuilding(gridPosition, GridStructure);
     }
 }

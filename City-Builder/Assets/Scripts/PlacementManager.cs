@@ -8,8 +8,10 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] Transform _ground;
 
 
-    public void CreateBuilding(Vector3 positon)
+    public void CreateBuilding(Vector3 positon, GridStructure gridStructure)
     {
-        Instantiate(BuildingPrefab, _ground.position + positon, Quaternion.identity);
+
+        GameObject newStructure = Instantiate(BuildingPrefab, _ground.position + positon, Quaternion.identity);
+        gridStructure.PlaceObjectOnGrid(positon, newStructure);
     }
 }

@@ -14,6 +14,8 @@ public class Cell
     public void ConstructCell(GameObject structureModel)
     {
         _structureModel = structureModel;
+
+        if(structureModel != null)
         _isTaken = true;
     }
 }
